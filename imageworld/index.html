@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>TEST</title>
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap/bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="assets/izi/iziToast.css">
+    <link rel="stylesheet" type="text/css" href="assets/hovercss/hover.css">
+
+    <script type="text/javascript" src="../assets/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../assets/izi/iziToast.js"></script>
+
+    <script src="https://vk.com/js/api/openapi.js?162" type="text/javascript"></script>
+</head>
+<style>
+    body {
+        background: url("images/winter_bg.jpg");
+    }
+
+    .title {
+        color: white;
+        font-style: inherit;
+    }
+
+    .thumb img {
+        margin-right: 100px;
+        margin-left: 100px;
+        margin-top: 10px;
+    }
+
+    input[type=text] {
+        width: 140%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 2px solid red;
+        border-radius: 4px;
+    }
+
+    .title_button {
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        padding: .8em 1em calc(.8em + 3px);
+        border-radius: 50px;
+        background: black;
+        transition: 0.2s;
+    }
+
+    .black_text {
+        color: black;
+    }
+
+    .bottom {
+        background-image: url('images/bg.png');
+    }
+
+    .title_button:hover {
+        color: black;
+        background: whitesmoke;
+        transition: 0.6s;
+    }
+
+    .img_bg_text {
+        background: url('images/bg.jpg');
+        width: 50%;
+    }
+
+    .title_button:active {
+        color: whitesmoke;
+        background: green;
+        transition: 0.3s;
+    }
+
+    .footer {
+        padding: 10px;
+        background: url('images/bg.jpg');
+        color: black;
+        width: 100%;
+    }
+
+
+    .img:hover {
+        transform: scale(1.5) translate(25px, 15px);
+        transition: all 0.3s linear 0.3s;
+    }
+
+    .text_button:hover {
+        color: blue;
+        transition: 0.6s;
+    }
+
+    oneline {
+        display: inline-block;
+        padding: 30px;
+    }
+</style>
+
+<body>
+    <oneline>
+        <h1 class='title'>World of Images</h1>
+    </oneline>
+    <oneline>
+        <input type="text" id="lname" placeholder="search for images..." name="lname">
+    </oneline>
+    <img src='images/searchbutton.png' width=20px height=20px>
+    <br><br>
+
+    <div align='center'>
+        <div id='page_name'>
+            <h1>Энциклопедия</h1>
+        </div>
+    </div>
+
+    <div align='center'>
+        <button type='button' id='mems' class='title_button'>Мемы</button>
+        <button type='button' id='wiki' class='title_button'>Энциклопедия</button>
+        <button type='button' id='recomend' class='title_button'>Рекомендации</button>
+        <button type='button' id='popular' class='title_button'>Популярные</button>
+        <button type='button' id='gifs' class='title_button'>Гифки</button>
+    </div>
+
+    <br><br>
+    <div align='center' id='imgs'>
+        <div id='img_1'><img class='img' src='images/test1.jpg' width=450px haight=450px>
+            <div id="vk_like"></div>
+            
+            <h3 class='img_bg_text'>Амурский тигр довольно крупный,<br> считается крупнейшим среди представителей
+                семейства кошачьи,<br> с
+                более густой и светлой шерстью по сравнению с его южными сородичами.</h3>
+        </div>
+        <div id='img_2'><img class='img' src='images/test2.jpg' width=450px haight=450px>
+            <h3 class='img_bg_text'>Ученые установили, что шум водопада благопроиятно<br> влияет на психику челвека,<br>
+                успокаивая его и
+                помогая справиться со стрессом.</h3>
+        </div>
+        <div id='img_3'><img class='img' src='images/test3.jpg' width=450px haight=450px>
+            <h3 class='img_bg_text'>Небольшие озёра не живут вечно — в среднем на озёрном <br> дне за тысячу лет
+                накапливается около метра
+                <br> осадков, что рано или поздно приводит к тому,<br> что озеро высыхает или превращается в болото.
+            </h3>
+        </div>
+    </div>
+    <div align='center' class='footer'>
+        <h3 class='text_button' type='button' id='info'>>Информация</h3>
+        <img src='images/vk.png' width=30px height=30px>
+        <img src='images/telegram.png' width=30px height=30px>
+        <img src='images/facebook.png' width=30px height=30px>
+    </div>
+    <div align='center'>
+    <div id="vk_comments" ></div>
+        </div>
+
+    <script>
+        window.onload = function(){
+            VK.init({apiId: 7156283, onlyWidgets: true});
+
+        VK.Widgets.Like('vk_like');
+
+        VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
+    }
+
+        $('#mems').on('click', function () {
+            $("#imgs").html(
+                '<img src="images/mem_1.png" width=450px height=450px><br><br><br><br><br><br>'
+            )
+            $("#page_name").html(
+                '<h1>Мемы</h1>'
+            )
+            for (let i = 1; i < 44; i++) {
+                if (i <= 22) {
+                    $("#imgs").append(
+                        '<img src="images/mem_' + i + '.png" width=450px height=450px><br><br><br><br><br><br>'
+                    )
+                } else {
+                    var chance = Math.floor(Math.random() * 22);
+                    $("#imgs").append(
+                        '<img src="images/mem_' + chance + '.png" width=450px height=450px><br><br><br><br><br><br>'
+                    )
+                }
+            }
+
+        });
+    </script>
+
+</body>
